@@ -37,14 +37,14 @@ data "aws_iam_policy_document" "efs" {
       type        = "AWS"
       identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
     }
-    effect = "Allow"
-    actions = ["kms:*"]
+    effect    = "Allow"
+    actions   = ["kms:*"]
     resources = ["*"]
   }
 }
 
 module "kms" {
-  source        = "github.com/massdriver-cloud/terraform-modules//aws/aws-kms-key?ref=7dbcf1e"
-  md_metadata   = var.md_metadata
-  policy        = data.aws_iam_policy_document.efs.json
+  source      = "github.com/massdriver-cloud/terraform-modules//aws/aws-kms-key?ref=7dbcf1e"
+  md_metadata = var.md_metadata
+  policy      = data.aws_iam_policy_document.efs.json
 }

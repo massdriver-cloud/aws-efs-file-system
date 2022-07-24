@@ -13,7 +13,7 @@ terraform {
 }
 
 provider "aws" {
-  region     = var.storage.region
+  region = var.storage.region
   assume_role {
     role_arn    = var.aws_authentication.data.arn
     external_id = var.aws_authentication.data.external_id
