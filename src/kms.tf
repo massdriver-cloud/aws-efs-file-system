@@ -44,7 +44,7 @@ data "aws_iam_policy_document" "efs" {
 }
 
 module "kms" {
-  source      = "github.com/massdriver-cloud/terraform-modules//aws/aws-kms-key?ref=7dbcf1e"
+  source      = "github.com/massdriver-cloud/terraform-modules//aws/aws-kms-key?ref=afe781a"
   md_metadata = var.md_metadata
   policy      = data.aws_iam_policy_document.efs.json
 }
