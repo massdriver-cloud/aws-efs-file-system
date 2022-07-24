@@ -1,0 +1,114 @@
+# This file will be used to generate all of the schema-*.json files in a bundle
+schema: draft-07
+name: "aws-efs-file-system"
+description: "Amazon Elastic File System (EFS) is a serverless, elastic network file storage solution that can be shared across AWS cloud services and on-premise resources."
+ref: github.com/massdriver-cloud/aws-efs-file-system
+access: "public"
+type: "bundle"
+
+# schema-params.json
+# JSON Schema sans-fields above
+params:
+  required: [
+    "storage",
+    "retention"
+  ]
+  properties:
+    storage:
+      title: Storage
+      type: object
+      required: [
+        "region",
+        "performance_mode",
+        "throughput_mode"
+      ]
+      properties:
+        region:
+          $ref: https://raw.githubusercontent.com/massdriver-cloud/artifact-definitions/main/definitions/types/aws-region.json
+        performance_mode:
+          title: Performance Mode
+          description: General Purpose has lower latency, but limits your file operations per second. Max IO substantially increases IOPs, but increase latency.
+          type: string
+          $md.immutable: true
+          oneOf:
+            - title: General Purpose
+              const: generalPurpose
+            - title: Max IO
+              const: maxIO
+        throughput_mode:
+          title: Throughput Mode
+          description: Burst mode uses a credit system which accrues over time based on the size of the EFS file system and is ideal for most applications with bursty throughput patterns. Provisioned is best when your throughput requirements are relatively constant.
+          type: string
+          oneOf:
+            - title: Burst
+              const: bursting
+            - title: Provisioned
+              const: provisioned
+        provisioned_throughput_in_mibps:
+          title: Provisioned Throughput
+          description: The throughput, measured in MiB/s, that you want to provision for the file system. Required if Throughput mode is set to "Provisioned"
+          type: integer
+          minimum: 1
+          maximum: 1024
+    retention:
+      title: Lifecycle
+      type: object
+      required: [
+        "transition_to_ia",
+        "backup"
+      ]
+      properties:
+        transition_to_ia:
+          title: Transition to Infrequently Accessed
+          description: Duration from the last time a file was accessed until it is transitioned to Infrequently Accessed (IA) storage class.
+          type: string
+          default: DISABLED
+          oneOf:
+            - title: Disabled
+              const: DISABLED
+            - title: "7 days"
+              const: AFTER_7_DAYS
+            - title: "14 days"
+              const: AFTER_14_DAYS
+            - title: "30 days"
+              const: AFTER_30_DAYS
+            - title: "60 days"
+              const: AFTER_60_DAYS
+            - title: "90 days"
+              const: AFTER_90_DAYS
+        backup:
+          title: Enable Backups
+          description: Automatically backup your file system data with AWS Backup using recommended settings. Additional pricing applies.
+          type: boolean
+          default: false
+
+
+connections:
+  required:
+  - aws_authentication
+  properties:
+    aws_authentication:
+      $ref: massdriver/aws-iam-role
+
+# schema-artifacts.json
+# Named list of output artifacts  (map[name]artifact)
+artifacts:
+  required:
+    - file_system
+  properties:
+    file_system:
+      $ref: massdriver/aws-s3-bucket
+
+# schema-ui.json
+# List of form customizations for params-schema
+ui:
+  ui:order:
+    - "*"
+  ## set top level ui:wiget
+  # secret_key:
+  #    ui:widget: "password"
+  ## Set key in an array of objects
+  # secrets:
+  #   items:
+  #     mdKeyId:
+  #       ui:widget: "hidden"
