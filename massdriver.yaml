@@ -6,6 +6,10 @@ ref: github.com/massdriver-cloud/aws-efs-file-system
 access: "public"
 type: "bundle"
 
+steps:
+  - path: src
+    provisioner: terraform
+
 # schema-params.json
 # JSON Schema sans-fields above
 params:
