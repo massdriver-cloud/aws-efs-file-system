@@ -101,7 +101,7 @@ artifacts:
     - file_system
   properties:
     file_system:
-      $ref: massdriver/aws-s3-bucket
+      $ref: massdriver/aws-efs-file-system
 
 # schema-ui.json
 # List of form customizations for params-schema
