@@ -9,6 +9,7 @@ resource "massdriver_artifact" "file_system" {
           arn      = aws_efs_file_system.main.arn,
           dns_name = aws_efs_file_system.main.dns_name
         }
+        security = {}
       }
       specs = {
         aws = {
