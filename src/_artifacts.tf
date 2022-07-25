@@ -12,7 +12,7 @@ resource "massdriver_artifact" "file_system" {
       }
       specs = {
         aws = {
-          region = var.storage.region
+          region = var.vpc.specs.aws.region
         }
       }
     }

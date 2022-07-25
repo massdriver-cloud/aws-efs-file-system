@@ -22,17 +22,15 @@ params:
       title: Storage
       type: object
       required: [
-        "region",
         "performance_mode",
         "throughput_mode"
       ]
       properties:
-        region:
-          $ref: https://raw.githubusercontent.com/massdriver-cloud/artifact-definitions/main/definitions/types/aws-region.json
         performance_mode:
           title: Performance Mode
           description: General Purpose has lower latency, but limits your file operations per second. Max IO substantially increases IOPs, but increase latency.
           type: string
+          default: generalPurpose
           $md.immutable: true
           oneOf:
             - title: General Purpose
@@ -43,6 +41,7 @@ params:
           title: Throughput Mode
           description: Burst mode uses a credit system which accrues over time based on the size of the EFS file system and is ideal for most applications with bursty throughput patterns. Provisioned is best when your throughput requirements are relatively constant.
           type: string
+          default: bursting
           oneOf:
             - title: Burst
               const: bursting
@@ -66,7 +65,7 @@ params:
           title: Transition to Infrequently Accessed
           description: Duration from the last time a file was accessed until it is transitioned to Infrequently Accessed (IA) storage class.
           type: string
-          default: DISABLED
+          default: AFTER_30_DAYS
           oneOf:
             - title: Disabled
               const: DISABLED
@@ -90,12 +89,13 @@ params:
 connections:
   required:
   - aws_authentication
+  - vpc
   properties:
     aws_authentication:
       $ref: massdriver/aws-iam-role
+    vpc:
+      $ref: massdriver/aws-vpc
 
-# schema-artifacts.json
-# Named list of output artifacts  (map[name]artifact)
 artifacts:
   required:
     - file_system
@@ -103,16 +103,19 @@ artifacts:
     file_system:
       $ref: massdriver/aws-efs-file-system
 
-# schema-ui.json
-# List of form customizations for params-schema
 ui:
   ui:order:
+    - storage
+    - retention
     - "*"
-  ## set top level ui:wiget
-  # secret_key:
-  #    ui:widget: "password"
-  ## Set key in an array of objects
-  # secrets:
-  #   items:
-  #     mdKeyId:
-  #       ui:widget: "hidden"
+  storage:
+    ui:order:
+      - performance_mode
+      - throughput_mode
+      - provisioned_throughput_in_mibps
+      - "*"
+  retention:
+    ui:order:
+      - transition_to_ia
+      - backup
+      - "*"
