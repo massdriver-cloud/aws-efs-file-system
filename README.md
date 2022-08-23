@@ -51,7 +51,6 @@ Security and compliance scanning of our bundles is performed using [Bridgecrew](
 | [![NIST-800-53](https://www.bridgecrew.cloud/badges/github/massdriver-cloud/aws-efs-file-system/nist)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=massdriver-cloud%2Faws-efs-file-system&benchmark=NIST-800-53) | National Institute of Standards and Technology Compliance |
 | [![ISO27001](https://www.bridgecrew.cloud/badges/github/massdriver-cloud/aws-efs-file-system/iso)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=massdriver-cloud%2Faws-efs-file-system&benchmark=ISO27001) | Information Security Management System, ISO/IEC 27001 Compliance |
 | [![SOC2](https://www.bridgecrew.cloud/badges/github/massdriver-cloud/aws-efs-file-system/soc2)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=massdriver-cloud%2Faws-efs-file-system&benchmark=SOC2)| Service Organization Control 2 Compliance |
-| [![CIS GCP](https://www.bridgecrew.cloud/badges/github/massdriver-cloud/aws-efs-file-system/cis_gcp)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=massdriver-cloud%2Faws-efs-file-system&benchmark=CIS+GCP+V1.1) | Center for Internet Security, GCP Compliance |
 | [![HIPAA](https://www.bridgecrew.cloud/badges/github/massdriver-cloud/aws-efs-file-system/hipaa)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=massdriver-cloud%2Faws-efs-file-system&benchmark=HIPAA) | Health Insurance Portability and Accountability Compliance |
 
 <!-- COMPLIANCE:END -->
