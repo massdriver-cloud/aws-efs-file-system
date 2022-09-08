@@ -2,7 +2,7 @@
 schema: draft-07
 name: "aws-efs-file-system"
 description: "Amazon Elastic File System (EFS) is a serverless, elastic network file storage solution that can be shared across AWS cloud services and on-premise resources."
-ref: github.com/massdriver-cloud/aws-efs-file-system
+source_url: github.com/massdriver-cloud/aws-efs-file-system
 access: "public"
 type: "bundle"
 
