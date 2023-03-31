@@ -14,7 +14,7 @@ resource "massdriver_artifact" "file_system" {
             read = {
               policy_arn = aws_iam_policy.read.arn
             }
-            "read/write" = {
+            read_write = {
               policy_arn = aws_iam_policy.read_write.arn
             }
             root = {
