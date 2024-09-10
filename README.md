@@ -37,28 +37,9 @@ Form input parameters for configuring a bundle for deployment.
 <summary>View</summary>
 
 <!-- PARAMS:START -->
-## Properties
 
-- **`retention`** *(object)*
-  - **`backup`** *(boolean)*: Automatically backup your file system data with AWS Backup using recommended settings. Additional pricing applies. Default: `False`.
-  - **`transition_to_ia`** *(string)*: Duration from the last time a file was accessed until it is transitioned to Infrequently Accessed (IA) storage class. Default: `AFTER_30_DAYS`.
-    - **One of**
-      - Disabled
-      - 7 days
-      - 14 days
-      - 30 days
-      - 60 days
-      - 90 days
-- **`storage`** *(object)*
-  - **`performance_mode`** *(string)*: General Purpose has lower latency, but limits your file operations per second. Max IO substantially increases IOPs, but increase latency. Default: `generalPurpose`.
-    - **One of**
-      - General Purpose
-      - Max IO
-  - **`provisioned_throughput_in_mibps`** *(integer)*: The throughput, measured in MiB/s, that you want to provision for the file system. Required if Throughput mode is set to "Provisioned". Minimum: `1`. Maximum: `1024`.
-  - **`throughput_mode`** *(string)*: Burst mode uses a credit system which accrues over time based on the size of the EFS file system and is ideal for most applications with bursty throughput patterns. Provisioned is best when your throughput requirements are relatively constant. Default: `bursting`.
-    - **One of**
-      - Burst
-      - Provisioned
+**Params coming soon**
+
 <!-- PARAMS:END -->
 
 </details>
@@ -71,151 +52,8 @@ Connections from other bundles that this bundle depends on.
 <summary>View</summary>
 
 <!-- CONNECTIONS:START -->
-## Properties
 
-- **`aws_authentication`** *(object)*: . Cannot contain additional properties.
-  - **`data`** *(object)*
-    - **`arn`** *(string)*: Amazon Resource Name.
-
-      Examples:
-      ```json
-      "arn:aws:rds::ACCOUNT_NUMBER:db/prod"
-      ```
-
-      ```json
-      "arn:aws:ec2::ACCOUNT_NUMBER:vpc/vpc-foo"
-      ```
-
-    - **`external_id`** *(string)*: An external ID is a piece of data that can be passed to the AssumeRole API of the Security Token Service (STS). You can then use the external ID in the condition element in a role's trust policy, allowing the role to be assumed only when a certain value is present in the external ID.
-  - **`specs`** *(object)*
-    - **`aws`** *(object)*: .
-      - **`region`** *(string)*: AWS Region to provision in.
-
-        Examples:
-        ```json
-        "us-west-2"
-        ```
-
-- **`vpc`** *(object)*: . Cannot contain additional properties.
-  - **`data`** *(object)*
-    - **`infrastructure`** *(object)*
-      - **`arn`** *(string)*: Amazon Resource Name.
-
-        Examples:
-        ```json
-        "arn:aws:rds::ACCOUNT_NUMBER:db/prod"
-        ```
-
-        ```json
-        "arn:aws:ec2::ACCOUNT_NUMBER:vpc/vpc-foo"
-        ```
-
-      - **`cidr`** *(string)*
-
-        Examples:
-        ```json
-        "10.100.0.0/16"
-        ```
-
-        ```json
-        "192.24.12.0/22"
-        ```
-
-      - **`internal_subnets`** *(array)*
-        - **Items** *(object)*: AWS VCP Subnet.
-          - **`arn`** *(string)*: Amazon Resource Name.
-
-            Examples:
-            ```json
-            "arn:aws:rds::ACCOUNT_NUMBER:db/prod"
-            ```
-
-            ```json
-            "arn:aws:ec2::ACCOUNT_NUMBER:vpc/vpc-foo"
-            ```
-
-          - **`aws_zone`** *(string)*: AWS Availability Zone.
-
-            Examples:
-          - **`cidr`** *(string)*
-
-            Examples:
-            ```json
-            "10.100.0.0/16"
-            ```
-
-            ```json
-            "192.24.12.0/22"
-            ```
-
-
-          Examples:
-      - **`private_subnets`** *(array)*
-        - **Items** *(object)*: AWS VCP Subnet.
-          - **`arn`** *(string)*: Amazon Resource Name.
-
-            Examples:
-            ```json
-            "arn:aws:rds::ACCOUNT_NUMBER:db/prod"
-            ```
-
-            ```json
-            "arn:aws:ec2::ACCOUNT_NUMBER:vpc/vpc-foo"
-            ```
-
-          - **`aws_zone`** *(string)*: AWS Availability Zone.
-
-            Examples:
-          - **`cidr`** *(string)*
-
-            Examples:
-            ```json
-            "10.100.0.0/16"
-            ```
-
-            ```json
-            "192.24.12.0/22"
-            ```
-
-
-          Examples:
-      - **`public_subnets`** *(array)*
-        - **Items** *(object)*: AWS VCP Subnet.
-          - **`arn`** *(string)*: Amazon Resource Name.
-
-            Examples:
-            ```json
-            "arn:aws:rds::ACCOUNT_NUMBER:db/prod"
-            ```
-
-            ```json
-            "arn:aws:ec2::ACCOUNT_NUMBER:vpc/vpc-foo"
-            ```
-
-          - **`aws_zone`** *(string)*: AWS Availability Zone.
-
-            Examples:
-          - **`cidr`** *(string)*
-
-            Examples:
-            ```json
-            "10.100.0.0/16"
-            ```
-
-            ```json
-            "192.24.12.0/22"
-            ```
-
-
-          Examples:
-  - **`specs`** *(object)*
-    - **`aws`** *(object)*: .
-      - **`region`** *(string)*: AWS Region to provision in.
-
-        Examples:
-        ```json
-        "us-west-2"
-        ```
+**Connections coming soon**
 
 <!-- CONNECTIONS:END -->
 
@@ -229,72 +67,8 @@ Resources created by this bundle that can be connected to other bundles.
 <summary>View</summary>
 
 <!-- ARTIFACTS:START -->
-## Properties
 
-- **`file_system`** *(object)*: Cannot contain additional properties.
-  - **`data`** *(object)*
-    - **`infrastructure`** *(object)*
-      - **`arn`** *(string)*: Amazon Resource Name.
-
-        Examples:
-        ```json
-        "arn:aws:rds::ACCOUNT_NUMBER:db/prod"
-        ```
-
-        ```json
-        "arn:aws:ec2::ACCOUNT_NUMBER:vpc/vpc-foo"
-        ```
-
-      - **`dns_name`** *(string)*
-    - **`security`** *(object)*: Informs downstream services of network and/or IAM policies. Cannot contain additional properties.
-      - **`iam`** *(object)*: IAM Policies. Cannot contain additional properties.
-        - **`^[a-z]+[a-z_]*[a-z]+$`** *(object)*
-          - **`policy_arn`** *(string)*: AWS IAM policy ARN.
-
-            Examples:
-            ```json
-            "arn:aws:rds::ACCOUNT_NUMBER:db/prod"
-            ```
-
-            ```json
-            "arn:aws:ec2::ACCOUNT_NUMBER:vpc/vpc-foo"
-            ```
-
-      - **`identity`** *(object)*: For instances where IAM policies must be attached to a role attached to an AWS resource, for instance AWS Eventbridge to Firehose, this attribute should be used to allow the downstream to attach it's policies (Firehose) directly to the IAM role created by the upstream (Eventbridge). It is important to remember that connections in massdriver are one way, this scheme perserves the dependency relationship while allowing bundles to control the lifecycles of resources under it's management. Cannot contain additional properties.
-        - **`role_arn`** *(string)*: ARN for this resources IAM Role.
-
-          Examples:
-          ```json
-          "arn:aws:rds::ACCOUNT_NUMBER:db/prod"
-          ```
-
-          ```json
-          "arn:aws:ec2::ACCOUNT_NUMBER:vpc/vpc-foo"
-          ```
-
-      - **`network`** *(object)*: AWS security group rules to inform downstream services of ports to open for communication. Cannot contain additional properties.
-        - **`^[a-z-]+$`** *(object)*
-          - **`arn`** *(string)*: Amazon Resource Name.
-
-            Examples:
-            ```json
-            "arn:aws:rds::ACCOUNT_NUMBER:db/prod"
-            ```
-
-            ```json
-            "arn:aws:ec2::ACCOUNT_NUMBER:vpc/vpc-foo"
-            ```
-
-          - **`port`** *(integer)*: Port number. Minimum: `0`. Maximum: `65535`.
-          - **`protocol`** *(string)*: Must be one of: `['tcp', 'udp']`.
-  - **`specs`** *(object)*
-    - **`aws`** *(object)*: .
-      - **`region`** *(string)*: AWS Region to provision in.
-
-        Examples:
-        ```json
-        "us-west-2"
-        ```
+**Artifacts coming soon**
 
 <!-- ARTIFACTS:END -->
 
