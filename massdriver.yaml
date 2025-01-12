@@ -58,7 +58,7 @@ params:
                   const: provisioned
                 provisioned_throughput_in_mibps:
                   title: Provisioned Throughput
-                  description: The throughput, measured in MiB/s, that you want to provision for the file system. Required if Throughput mode is set to "Provisioned"
+                  description: The throughput, measured in MiB/s, that you want to provision for the file system.
                   type: integer
                   minimum: 1
                   maximum: 1024
