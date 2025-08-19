@@ -3,7 +3,6 @@ name: aws-efs-file-system
 version: 1.0.0
 description: Amazon Elastic File System (EFS) is a serverless, elastic network file storage solution that can be shared across AWS cloud services and on-premise resources.
 source_url: https://github.com/massdriver-cloud/aws-efs-file-system
-type: application
 steps:
 - path: src
   provisioner: opentofu
