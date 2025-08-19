@@ -1,76 +1,68 @@
-# This file will be used to generate all of the schema-*.json files in a bundle
 schema: draft-07
-name: "aws-efs-file-system"
-description: "Amazon Elastic File System (EFS) is a serverless, elastic network file storage solution that can be shared across AWS cloud services and on-premise resources."
-source_url: github.com/massdriver-cloud/aws-efs-file-system
-access: "public"
-type: "bundle"
-
+name: aws-efs-file-system
+version: 1.0.0
+description: Amazon Elastic File System (EFS) is a serverless, elastic network file storage solution that can be shared across AWS cloud services and on-premise resources.
+source_url: https://github.com/massdriver-cloud/aws-efs-file-system
+type: application
 steps:
-  - path: src
-    provisioner: terraform
-
-# schema-params.json
-# JSON Schema sans-fields above
+- path: src
+  provisioner: opentofu
 params:
-  required: [
-    "storage",
-    "retention"
-  ]
+  required:
+  - storage
+  - retention
   properties:
     storage:
       title: Storage
       type: object
-      required: [
-        "performance_mode",
-        "throughput_mode"
-      ]
+      required:
+      - performance_mode
+      - throughput_mode
       properties:
         performance_mode:
           title: Performance Mode
           description: General Purpose has lower latency, but limits your file operations per second. Max IO substantially increases IOPs, but increase latency.
           type: string
           default: generalPurpose
-          $md.immutable: true
+          "$md.immutable": true
           oneOf:
-            - title: General Purpose
-              const: generalPurpose
-            - title: Max IO
-              const: maxIO
+          - title: General Purpose
+            const: generalPurpose
+          - title: Max IO
+            const: maxIO
         throughput_mode:
           title: Throughput Mode
           description: Burst mode uses a credit system which accrues over time based on the size of the EFS file system and is ideal for most applications with bursty throughput patterns. Provisioned is best when your throughput requirements are relatively constant.
           type: string
           default: bursting
           oneOf:
-            - title: Burst
-              const: bursting
-            - title: Provisioned
-              const: provisioned
+          - title: Burst
+            const: bursting
+          - title: Provisioned
+            const: provisioned
       dependencies:
         throughput_mode:
           oneOf:
-            - properties:
-                throughput_mode:
-                  const: bursting
-            - properties:
-                throughput_mode:
-                  const: provisioned
-                provisioned_throughput_in_mibps:
-                  title: Provisioned Throughput
-                  description: The throughput, measured in MiB/s, that you want to provision for the file system.
-                  type: integer
-                  minimum: 1
-                  maximum: 1024
-              required:
-                - provisioned_throughput_in_mibps
+          - properties:
+              throughput_mode:
+                const: bursting
+          - properties:
+              throughput_mode:
+                const: provisioned
+              provisioned_throughput_in_mibps:
+                title: Provisioned Throughput
+                description: The throughput, measured in MiB/s, that you want to provision for the file system.
+                type: integer
+                minimum: 1
+                maximum: 1024
+            required:
+            - provisioned_throughput_in_mibps
     retention:
       title: Lifecycle
       type: object
-      required: [
-        "transition_to_ia",
-        "backup"
-      ]
+      required:
+      - transition_to_ia
+      - backup
       properties:
         transition_to_ia:
           title: Transition to Infrequently Accessed
@@ -78,55 +70,51 @@ params:
           type: string
           default: AFTER_30_DAYS
           oneOf:
-            - title: Disabled
-              const: DISABLED
-            - title: "7 days"
-              const: AFTER_7_DAYS
-            - title: "14 days"
-              const: AFTER_14_DAYS
-            - title: "30 days"
-              const: AFTER_30_DAYS
-            - title: "60 days"
-              const: AFTER_60_DAYS
-            - title: "90 days"
-              const: AFTER_90_DAYS
+          - title: Disabled
+            const: DISABLED
+          - title: 7 days
+            const: AFTER_7_DAYS
+          - title: 14 days
+            const: AFTER_14_DAYS
+          - title: 30 days
+            const: AFTER_30_DAYS
+          - title: 60 days
+            const: AFTER_60_DAYS
+          - title: 90 days
+            const: AFTER_90_DAYS
         backup:
           title: Enable Backups
           description: Automatically backup your file system data with AWS Backup using recommended settings. Additional pricing applies.
           type: boolean
           default: false
-
-
 connections:
   required:
   - aws_authentication
   - vpc
   properties:
     aws_authentication:
-      $ref: massdriver/aws-iam-role
+      "$ref": massdriver/aws-iam-role
     vpc:
-      $ref: massdriver/aws-vpc
-
+      "$ref": massdriver/aws-vpc
 artifacts:
   required:
-    - file_system
+  - file_system
   properties:
     file_system:
-      $ref: massdriver/aws-efs-file-system
-
+      "$ref": massdriver/aws-efs-file-system
 ui:
   ui:order:
-    - storage
-    - retention
-    - "*"
+  - storage
+  - retention
+  - "*"
   storage:
     ui:order:
-      - performance_mode
-      - throughput_mode
-      - provisioned_throughput_in_mibps
-      - "*"
+    - performance_mode
+    - throughput_mode
+    - provisioned_throughput_in_mibps
+    - "*"
   retention:
     ui:order:
-      - transition_to_ia
-      - backup
-      - "*"
+    - transition_to_ia
+    - backup
+    - "*"
