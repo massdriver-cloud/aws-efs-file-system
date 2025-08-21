@@ -1,7 +1,6 @@
 resource "massdriver_artifact" "file_system" {
-  field                = "file_system"
-  provider_resource_id = aws_efs_file_system.main.arn
-  name                 = "AWS EFS File System: ${aws_efs_file_system.main.arn}"
+  field    = "file_system"
+  name     = "AWS EFS File System: ${aws_efs_file_system.main.arn}"
   artifact = jsonencode(
     {
       data = {
