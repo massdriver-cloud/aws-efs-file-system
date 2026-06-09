@@ -92,15 +92,15 @@ connections:
   - vpc
   properties:
     aws_authentication:
-      "$ref": massdriver/aws-iam-role
+      "$ref": aws-iam-role
     vpc:
-      "$ref": massdriver/aws-vpc
+      "$ref": aws-vpc
 artifacts:
   required:
   - file_system
   properties:
     file_system:
-      "$ref": massdriver/aws-efs-file-system
+      "$ref": aws-efs-file-system
 ui:
   ui:order:
   - storage
