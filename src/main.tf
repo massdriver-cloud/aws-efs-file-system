@@ -1,7 +1,7 @@
 
 locals {
-  vpc_id           = element(split("/", var.vpc.data.infrastructure.arn), 1)
-  subnet_ids       = [for subnet in var.vpc.data.infrastructure.internal_subnets : element(split("/", subnet["arn"]), 1)]
+  vpc_id           = element(split("/", var.vpc.infrastructure.arn), 1)
+  subnet_ids       = [for subnet in var.vpc.infrastructure.internal_subnets : element(split("/", subnet["arn"]), 1)]
   create_lifecycle = var.retention.transition_to_ia != "DISABLED"
   nfs_port         = 2049
   nfs_protocol     = "TCP"
@@ -67,7 +67,7 @@ resource "aws_security_group_rule" "vpc_ingress" {
   from_port   = local.nfs_port
   to_port     = local.nfs_port
   protocol    = local.nfs_protocol
-  cidr_blocks = [var.vpc.data.infrastructure.cidr]
+  cidr_blocks = [var.vpc.infrastructure.cidr]
 
   security_group_id = aws_security_group.mount.id
 }
